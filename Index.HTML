@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>A Creepy Story - The Basement</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #f5f5f5;
+            color: #111;
+            margin: 0;
+            padding: 20px;
+            transition: background 1s, color 1s;
+        }
+
+        body.dark {
+            background-color: #000;
+            color: #eee;
+            background-image: radial-gradient(circle at center, #111 0%, #000 100%);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+        }
+
+        p {
+            font-size: 1.2em;
+            max-width: 600px;
+            margin: 20px auto;
+            text-align: center;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .controls {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .textEntry {
+            margin: 20px 0;
+            font-size: 1em;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            font-size: 1em;
+            width: 200px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            margin: 10px;
+            background-color: #222;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            background-color: #444;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-5px);
+            }
+
+            50% {
+                transform: translateX(5px);
+            }
+
+            75% {
+                transform: translateX(-5px);
+            }
+        }
+
+        .shake {
+            animation: shake 0.5s;
+        }
+
+        audio {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>The Basement</h1>
+    <p id="story">I wanted to find my friend, and he was hiding in the basement...</p>
+
+    <div class="controls">
+        <button onclick="goDark()">🌑 Get In The Mood</button>
+
+        <div class="textEntry">
+            Type your name here, if you dare:
+            <input type="text" id="name">
+        </div>
+
+        <button onclick="typeAndScream()">😱 Please, Please Don't Click Me</button>
+        <button onclick="finishTheStory()">📖 Tell Me What Happened!</button>
+    </div>
+
+    <audio id="scream" src="https://www.myinstants.com/media/sounds/movie_1.mp3"></audio>
+
+    <script>
+        function goDark() {
+            document.body.classList.add("dark");
+        }
+
+        function typeAndScream() {
+            const name = document.getElementById("name").value || "Stranger";
+            const story = document.getElementById("story");
+            const audio = document.getElementById("scream");
+
+            story.textContent = "You shouldn't have done that, " + name + "...";
+            story.classList.add("shake");
+
+            setTimeout(() => {
+                story.classList.remove("shake");
+            }, 500);
+
+            audio.play();
+            alert("I told you NOT to click that, " + name + "!");
+        }
+
+        function finishTheStory() {
+            const endings = [
+                "The door creaked open... but no one was there.",
+                "The lights flickered. Then, silence... and footsteps behind me.",
+                "A whisper echoed: 'You're next...'",
+                "I found my friend... or what used to be him.",
+                "I turned to run, but the stairs had vanished..."
+            ];
+            const randomEnding = endings[Math.floor(Math.random() * endings.length)];
+            document.getElementById("story").textContent = randomEnding;
+        }
+    </script>
+</body>
+
+</html>
